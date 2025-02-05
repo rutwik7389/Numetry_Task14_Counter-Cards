@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Cards, Timer & Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        /* Product Card */
+        .product-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            width: 250px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.1);
+        }
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+
+        /* Countdown Timer */
+        #countdown {
+            font-size: 2rem;
+            background: #222;
+            color: white;
+            display: inline-block;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px;
+        }
+
+        /* Image Gallery */
+        .buttons button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .gallery img {
+            width: 200px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+
+        .discount {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Countdown Timer -->
+    <h2>Sale Ends In:</h2>
+    <div id="countdown"></div>
+
+    <!-- Product Cards -->
+    <h2>Our Products</h2>
+    <div class="product-container">
+        <div class="card">
+            <img src="samsung_1.jpg" alt="Product 1">
+            <h3>Galaxy A06</h3>
+            <p><span class="discount">50% OFF</span></p>
+            <p>Original Price: ₹75000</p>
+            <p>Discounted Price: ₹37500</p>
+
+            <button class="button">Buy Now</button>
+        </div>
+        <div class="card">
+            <img src="apple_1.jpg" alt="Product 2">
+            <h3>Iphone 14</h3>
+            <p><span class="discount">50% OFF</span></p>
+            <p>Original Price: ₹120000</p>
+            <p>Discounted Price: ₹60000</p>
+
+            <button class="button">Buy Now</button>
+        </div>
+        <div class="card">
+            <img src="moto_1.jpg" alt="Product 3">
+            <h3>moto g 200</h3>
+            <p><span class="discount">50% OFF</span></p>
+            <p>Original Price: ₹65000</p>
+            <p>Discounted Price: ₹32500</p>
+
+            <button class="button">Buy Now</button>
+        </div>
+        <div class="card">
+            <img src="redmi.jpg" alt="Product 4">
+            <h3>Redmi A3</h3>
+            <p><span class="discount">50% OFF</span></p>
+            <p>Original Price: ₹20000</p>
+            <p>Discounted Price: ₹10000</p>
+
+            <button class="button">Buy Now</button>
+        </div>
+    </div>
+
+    <!-- Image Gallery -->
+    <h2>Image Gallery</h2>
+    <div class="buttons">
+        <button onclick="filterImages('all')">All</button>
+        <button onclick="filterImages('nature')">Nature</button>
+        <button onclick="filterImages('technology')">Technology</button>
+        <button onclick="filterImages('art')">Art</button>
+    </div>
+    <div class="gallery">
+        <img src="nature_1.jpg" class="nature">
+        <img src="tech_1.jpg" class="technology">
+        <img src="art_1.jpg" class="art">
+        <img src="nature_2.jpg" class="nature">
+        <img src="tech_2.jpg" class="technology">
+        <img src="art_2.jpg" class="art">
+    </div>
+
+    <script>
+        // Countdown Timer
+        function startCountdown(duration) {
+            let timer = duration, minutes, seconds;
+            function updateTimer() {
+                minutes = Math.floor(timer / 60);
+                seconds = timer % 60;
+                document.getElementById('countdown').textContent = 
+                    `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                if (--timer < 0) {
+                    timer = duration; // Reset countdown
+                }
+            }
+            setInterval(updateTimer, 1000);
+            updateTimer();
+        }
+        startCountdown(300); // 5-minute countdown
+
+        // Image Gallery Filtering
+        function filterImages(category) {
+            let images = document.querySelectorAll('.gallery img');
+            images.forEach(img => {
+                if (category === 'all' || img.classList.contains(category)) {
+                    img.classList.remove('hidden');
+                } else {
+                    img.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
